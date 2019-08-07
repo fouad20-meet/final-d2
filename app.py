@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'integratedplants@gmail.com'
-app.config['MAIL_PASSWORD'] = 'shekuisking123'
+app.config['MAIL_PASSWORD'] = 'ippgmail'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -66,7 +66,7 @@ def admin():
 	if request.method == 'POST':
 		user = request.form['user']
 		passw = request.form['pass']
-		if user == '1' and passw == '1':
+		if user == 'admin' and passw == '123456':
 			login_session['admin'] = True
 			return redirect(url_for('managment'))
 	return render_template("admin.html")
