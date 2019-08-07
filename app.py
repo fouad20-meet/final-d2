@@ -139,7 +139,7 @@ def add_picture_page():
 
 @app.route('/delete_pic/<int:picture_id>')
 def delete_pic(picture_id):
-	if login_session['admin']
+	if login_session['admin']:
 		delete_pic_by_id(picture_id)
 		ls = session.query(Product).all()
 		pics = session.query(Picture).all()
