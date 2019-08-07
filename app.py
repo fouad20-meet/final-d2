@@ -1,8 +1,11 @@
 from database import *
 from flask import Flask, render_template,url_for,request,redirect
 from flask_mail import Mail, Message
+from flask import session as login_session
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'you-will-never-guess'
+
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -64,71 +67,89 @@ def admin():
 		user = request.form['user']
 		passw = request.form['pass']
 		if user == '1' and passw == '1':
+			login_session['admin'] = True
 			return redirect(url_for('managment'))
 	return render_template("admin.html")
 
 @app.route('/managment', methods=['GET','POST'])
 def managment():
-	pics = session.query(Picture).all()
-	ls = session.query(Product).all()
-	return render_template("managment.html", ls=ls,pics=pics)
+	if login_session['admin']:
+		pics = session.query(Picture).all()
+		ls = session.query(Product).all()
+		return render_template("managment.html", ls=ls,pics=pics)
+	return redirect(url_for('admin'))
 
 
 @app.route('/product_managment/<int:product_id>', methods=['GET','POST'])
 def display_product_managment(product_id):
-	product = session.query(Product).filter_by(product_id=product_id).first()
-	print(product)
-	if request.method == 'POST':
-		name = request.form['name']
-		price = request.form['price']
-		picture_path = request.form['path']
+	if login_session['admin']:
+		product = session.query(Product).filter_by(product_id=product_id).first()
+		print(product)
+		if request.method == 'POST':
+			name = request.form['name']
+			price = request.form['price']
+			picture_path = request.form['path']
 
-		if name != "":
-			product.name=name
-		if price != "":
-			product.price=price
-		if picture_path != "":
-			product.picture_path=picture_path
+			if name != "":
+				product.name=name
+			if price != "":
+				product.price=price
+			if picture_path != "":
+				product.picture_path=picture_path
 
-		session.commit()
-		ls = session.query(Product).all()
-		pics = session.query(Picture).all()
-		return render_template('managment.html',ls = ls)
-	return render_template("managment_product.html", product = product)
+			session.commit()
+			ls = session.query(Product).all()
+			pics = session.query(Picture).all()
+			return render_template('managment.html',ls = ls)
+		return render_template("managment_product.html", product = product)
+	return redirect(url_for('admin'))
 
 @app.route('/add_product',methods=['GET','POST'])
 def add_product_page():
-	if request.method == 'POST':
-		name = request.form['name']
-		picture_path = request.form['path']
-		price = request.form['price']
-		if name != "" and picture_path != "" and price != "":
-			add_product(picture_path,name,price)
-			return redirect(url_for('managment'))
-	return render_template("add_product.html")
+	if login_session['admin']:
+		if request.method == 'POST':
+			name = request.form['name']
+			picture_path = request.form['path']
+			price = request.form['price']
+			if name != "" and picture_path != "" and price != "":
+				add_product(picture_path,name,price)
+				return redirect(url_for('managment'))
+		return render_template("add_product.html")
+	return redirect(url_for('admin'))
 @app.route('/delete/<int:product_id>')
 def delete_pro(product_id):
-	delete_by_id(product_id)
-	ls = session.query(Product).all()
-	pics = session.query(Picture).all()
-	return redirect(url_for('managment'))
+	if login_session['admin']:
+		delete_by_id(product_id)
+		ls = session.query(Product).all()
+		pics = session.query(Picture).all()
+		return redirect(url_for('managment'))
+	return redirect(url_for('admin'))
 
 
 @app.route('/add_picture',methods=['GET','POST'])
 def add_picture_page():
-	if request.method == 'POST':
-		path = request.form['path']
-		if path != "" :
-			add_pic(path)
-			return redirect(url_for('managment'))
-	return render_template("add_picture.html")
+	if login_session['admin']:
+		if request.method == 'POST':
+			path = request.form['path']
+			if path != "" :
+				add_pic(path)
+				return redirect(url_for('managment'))
+		return render_template("add_picture.html")
+	return redirect(url_for('admin'))
 
 @app.route('/delete_pic/<int:picture_id>')
 def delete_pic(picture_id):
-	delete_pic_by_id(picture_id)
-	ls = session.query(Product).all()
-	pics = session.query(Picture).all()
-	return redirect(url_for('managment'))
+	if login_session['admin']
+		delete_pic_by_id(picture_id)
+		ls = session.query(Product).all()
+		pics = session.query(Picture).all()
+		return redirect(url_for('managment'))
+	return redirect(url_for('admin'))
+
+@app.route('/logout')
+def logout():
+	login_session['admin']=False
+	return redirect(url_for('homepage'))
 
 if __name__ == '__main__':
    app.run(debug = True)
