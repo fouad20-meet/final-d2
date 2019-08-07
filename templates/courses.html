@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Integrative Production Plan &mdash; Store </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="static/bootstrap.min.css">
+  <link rel="stylesheet" href="static/jquery-ui.css">
+  <link rel="stylesheet" href="static/owl.carousel.min.css">
+  <link rel="stylesheet" href="static/owl.theme.default.min.css">
+  <link rel="stylesheet" href="static/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="static/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="static/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="static/fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="static/aos.css">
+  <link href="static/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="static/style.css">
+
+
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    <div class="py-2 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-9 d-none d-lg-block">
+            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a> 
+            <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 08-920-0050</a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> integratedplants@gmail.com</a> 
+          </div>
+        </div>
+      </div>
+    </div>
+<header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+          <div class="site-logo">
+            <a href="{{url_for('homepage')}}" class="d-block">
+              <img src="static/images/logo_sheku.jpg" alt="Image" class="img-fluid" width="140px" height="105px" >
+            </a>
+          </div>
+          <div class="mr-auto">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li >
+                  <a href="{{url_for('homepage')}}" class="nav-link text-left">Home</a>
+                </li>
+                <li class="has-children">
+                  <ul class="dropdown">
+                  </ul>
+                </li>
+                <li >
+                  <a href="{{url_for('about')}}" class="nav-link text-left">About Us</a>
+                </li>
+                <li class="active">
+                  <a href="{{url_for('store')}}" class="nav-link text-left">Store</a>
+                </li>
+                <li>
+                    <a href="{{url_for('contact')}}" class="nav-link text-left">Contact</a>
+                  </li>
+              </ul>                                                                                                                                                                                                                                                                                          </ul>
+            </nav>
+
+          </div>
+          <div class="ml-auto">
+            <div class="social-wrap">
+              <a href="https://www.facebook.com/shekulotov/"><span class="icon-facebook"></span></a>
+              <a href="https://www.instagram.com/integrativeplants/?hl=en"><span class="icon-instagram"></span></a>
+  
+
+              <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                class="icon-menu h3"></span></a>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+
+    </header>
+
+    
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('images/bg_1.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">Store</h2>
+              <p>IPP's special products to receive by delivery.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{{url_for('homepage')}}">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Store</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+              {%for product in ls%}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="course-1-item">
+                        <figure class="thumnail">
+                        <a href="{{ url_for('display_product',product_id=product.product_id) }}"><img src="{{product.picture_path}}" alt="Image" height=420px width="350px"></a>
+                        <div class="price">₪{{product.price}}.00</div>
+                          
+                        </figure>
+                        <div class="course-1-content pb-4">
+                        <h2>{{product.name}}</h2>
+
+                        
+                        <p><a href="{{ url_for('display_product',product_id=product.product_id) }}" class="btn btn-primary rounded-0 px-4">Buy This Product!</a></p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+          
+          </div>
+        </div>
+      </div>
+      
+
+    <div class="footer">
+      <div class="container">
+        
+  
+
+
+                <p style="text-align: center;">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+
+
+      </div>
+    </div>
+            </div>
+        </div>
+
+  </div>
+  <!-- .site-wrap -->
+
+  <!-- loader -->
+
+
+ <script src="static/js/jquery-3.3.1.min.js"></script>
+  <script src="static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="static/js/jquery-ui.js"></script>
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/owl.carousel.min.js"></script>
+  <script src="static/js/jquery.stellar.min.js"></script>
+  <script src="static/js/jquery.countdown.min.js"></script>
+  <script src="static/js/bootstrap-datepicker.min.js"></script>
+  <script src="static/js/jquery.easing.1.3.js"></script>
+  <script src="static/js/aos.js"></script>
+  <script src="static/js/jquery.fancybox.min.js"></script>
+  <script src="static/js/jquery.sticky.js"></script>
+  <script src="static/js/jquery.mb.YTPlayer.min.js"></script>
+
+
+
+
+
+  <script src="static/js/main.js"></script>
+
+</body>
+
+</html>
