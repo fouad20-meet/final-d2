@@ -18,8 +18,8 @@ mail = Mail(app)
 def homepage():
 	if request.method =='POST':
 		msg = Message(request.form['name'] + " " + request.form['family'], sender = 'integratedplants@gmail.com', recipients = ['integratedplants@gmail.com'])
-   		msg.html = "<p>" + request.form['prod'] + "</p> <br> <p>" + request.form['quan'] +"</p> <br> <p>" + request.form['email'] + "</p> <br> <p>" + request.form['tel'] + "</p>"
-   		mail.send(msg)
+		msg.html = "<p>" + request.form['prod'] + "</p> <br> <p>" + request.form['quan'] +"</p> <br> <p>" + request.form['email'] + "</p> <br> <p>" + request.form['tel'] + "</p>"
+		mail.send(msg)
 	ls = session.query(Product).all()
 	pics = session.query(Picture).all()
 	return render_template("index.html",ls=ls,pics=pics)
@@ -33,8 +33,8 @@ def store():
 def contact():
 	if request.method == 'POST':
 		msg = Message(request.form['name'] + " " + request.form['family'], sender = 'integratedplants@gmail.com', recipients = ['integratedplants@gmail.com'])
-   		msg.html = "<p>" + request.form['message'] + "</p> <br> <p>" + request.form['email'] + "</p> <br> <p>" + request.form['tel'] + "</p>"
-   		mail.send(msg)
+		msg.html = "<p>" + request.form['message'] + "</p> <br> <p>" + request.form['email'] + "</p> <br> <p>" + request.form['tel'] + "</p>"
+		mail.send(msg)
 
 	return render_template("contact.html")
 
